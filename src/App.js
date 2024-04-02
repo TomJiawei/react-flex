@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { Radio } from "antd";
+import CardCom from "./components/card";
+import TableCom from "./components/table";
+
+import "./App.css";
 
 function App() {
+  const [size, setSize] = useState("card");
+  useEffect(() => {
+    console.log(size);
+  }, [size]);
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="top">
+        <Radio.Group value={size} onChange={(e) => setSize(e.target.value)}>
+          <Radio.Button value="card">卡片</Radio.Button>
+          <Radio.Button value="table">列表</Radio.Button>
+        </Radio.Group>
+      </div>
+      <div>{size === "card" ? <CardCom className="card" /> : <TableCom />}</div>
     </div>
   );
 }
